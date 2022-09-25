@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .parent {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1px 1px;
+    }
+    .item {
+      background-color: lightskyblue;
+      border: 1px solid #fff;
+      padding: 5px 5px 5px 2em;
+      min-height: 250px;
+    }
+  </style>
+</head>
+<body style="font-family: sans-serif">
+<div style="margin-left: 10%;width: 75%;margin-right: auto">
+  <h2>Car's 'R' Us Client Demo - Version poor ;-)</h2>
+  <div class="parent">
+    <div class="item">
+      <h3>Show all Members or Cars</h3>
+      <button id="btn-get-all">Get all</button>
+      <div id="members">
+        <h4>Members</h4>
+        <ul id="ul-members"></ul>
+      </div>
+      <div id="cars">
+        <h4>Cars</h4>
+        <ul id="ul-cars"></ul>
+      </div>
+    </div>
+    <div class="item">
+      <h3>Find a single Member or Car</h3>
+      <label for="text-for-id">Id</label>&nbsp;<input id="text-for-id"/>
+      <button id="btn-find-car">Find</button>
+      <p id=>Show what you find here</p>
+      <p id="p-find-car"></p>
+    </div>
+    <div class="item">
+      <h3>Add a Car or a Member</h3>
+      <div><label for="input-field1">Field-1</label>&nbsp;<input id="input-field1"/></div>
+      <div><label for="input-field2">Field-2</label>&nbsp;<input id="input-field2"/></div>
+      <p> ..... remaining fields</p>
+      <button>Submit new item</button>
+      <p>Show returned data, if any</p>
+      <p>Use one of the two GET pages to verify that "something" was added</p>
+    </div>
+    <div class="item">
+      <h3>Edit a Car or a Member</h3>
+      <label for="text-for-id2">Id</label>&nbsp;<input id="text-for-id2"/>
+      <button>Find item to edit</button>
+      <p>Show what you find here, and let users edit fields</p>
+      <p>......</p>
+      <button>Submit edited item</button>
+      <p>Use one of the two GET pages to verify that "something" was added</p>
+    </div>
+  </div>
+</div>
+<script>
+    const btnGetAll = document.getElementById("btn-get-all");
+    btnGetAll.addEventListener("click", getAll);
+    const btnFindCar = document.getElementById("btn-find-car");
+    btnFindCar.addEventListener("click", getSingleCar);
+
+
+
+    function getCars() {
+      fetch("http://localhost:8080/api/cars", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+              .then(res => res.json())
+              .then(data => {
+                console.log(data);
+                const ulCars = document.getElementById("ul-cars");
+                ulCars.innerHTML = "";
+                data.forEach(car => {
+                  const li = document.createElement("li");
+                  li.innerText = car.brand + " " + car.model;
+                  ulCars.appendChild(li);
+                })
+              })
+    }
+
+    function getMembers() {
+      fetch("http://localhost:8080/api/members", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+              .then(res => res.json())
+              .then(data => {
+                console.log(data);
+                const ulMembers = document.getElementById("ul-members");
+                ulMembers.innerHTML = "";
+                data.forEach(member => {
+                  const li = document.createElement("li");
+                  li.innerText = member.username;
+                  ulMembers.appendChild(li);
+                })
+              })
+
+    }
+
+    function getAll() {
+      getCars();
+      getMembers();
+    }
+
+    function getSingleCar(){
+        const id = document.getElementById("text-for-id").value;
+        fetch("http://localhost:8080/api/cars/" + id, {
+            method: "GET",
+            headers: {
+            "Content-Type": "application/json"
+            }
+        })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    const pFindCar = document.getElementById("p-find-car");
+                    pFindCar.innerHTML = "";
+                    const li = document.createElement("li");
+                    li.innerText = data.brand + " " + data.model;
+                    pFindCar.appendChild(li);
+                })
+    }
+
+
+</script>
+</body>
+</html>

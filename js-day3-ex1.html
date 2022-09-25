@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<label for="userId"></label><input type="text" id="userId">
+<button id="btn1">Get User</button>
+<button id="btn2">Get All Users</button>
+
+<br>
+<label>Name: </label>
+<label id="name"></label>
+<br>
+<label><b>Address:</b> </label>
+<br>
+<label id="street"></label>
+<br>
+<label id="suite"></label>
+<br>
+<label id="city"></label>
+<br>
+<label id="zipcode"></label>
+<br>
+<label id="geo"></label>
+
+
+<table id="table1">
+    <tr>
+        <th>Name</th>
+        <th>Phone</th>
+    </tr>
+    <tbody id="tbody"></tbody>
+</table>
+
+
+<script>
+
+  const btn1 = document.getElementById("btn1");
+  btn1.addEventListener("click", getUser);
+  const btn2 = document.getElementById("btn2");
+  btn2.addEventListener("click", userBody);
+
+  function getUser(){
+    const userId = document.getElementById("userId").value;
+    console.log(userId);
+    let url = "https://jsonplaceholder.typicode.com/users/" + userId;
+
+    fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const name = document.getElementById("name");
+                name.innerText = data.name;
+                const street = document.getElementById("street");
+                street.innerText = data.address.street;
+                const suite = document.getElementById("suite");
+                suite.innerText = data.address.suite;
+                const city = document.getElementById("city");
+                city.innerText = data.address.city;
+                const zipcode = document.getElementById("zipcode");
+                zipcode.innerText = data.address.zipcode;
+                const geo = document.getElementById("geo");
+                geo.innerText = data.address.geo.lat + ", " + data.address.geo.lng;
+          });
+  }
+
+
+
+  function userBody(){
+      const url = "https://jsonplaceholder.typicode.com/users";
+      fetch(url)
+          .then(response => response.json())
+          .then(json => {
+              const tbody = document.getElementById("tbody");
+              tbody.innerHTML = json.map(user => `<tr>
+                    <td>${user.name}</td>
+                    <td>${user.phone}</td>
+                </tr>`).join("");
+          });
+
+  }
+</script>
+
+</body>
+</html>

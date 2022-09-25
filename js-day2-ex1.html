@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="d1" style="width: 100px;margin: 1px;">&nbsp;</div>
+<div id="d2" style="width: 100px;margin: 1px;">&nbsp;</div>
+<div id="d3" style="width: 100px;margin: 1px;">&nbsp;</div>
+<button id="b1">Klik mig</button>
+<script>
+  const allDivs = document.querySelectorAll("div");
+  allDivs.forEach(div => div.style.backgroundColor="green");
+
+  button.addEventListener("click", changeColor)
+
+  function changeColor(){
+    document.getElementById("d1").style.backgroundColor="black";
+    document.getElementById("d2").style.backgroundColor="yellow";
+    document.getElementById("d3").style.backgroundColor="blue";
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  <style>
+    .my-div {width: 25px; height: 25px;background-color:red; margin:1px;}
+  </style>
+</head>
+<body>
+
+<div id="outer">
+  <p id="p1"></p>
+  <div id="d1" class="my-div"></div>
+  <div id="d2" class="my-div"></div>
+  <div id="d3" class="my-div"></div>
+  <div id="d4" class="my-div"></div>
+  <div id="d5" class="my-div"></div>
+  <div id="d6" class="my-div"></div>
+  <div id="d7" class="my-div"></div>
+  <div id="d8" class="my-div"></div>
+  <div id="d9" class="my-div"></div>
+  <div id="d10" class="my-div"></div>
+
+</div>
+
+<script>
+  const allDivs = document.querySelectorAll("div");
+
+  allDivs.forEach(div => div.addEventListener("click", divHello));
+
+  function divHello(evt){
+    const id = evt.target.id;
+    const helloText = "hello from " + id;
+    const p1 = document.getElementById("p1");
+    p1.innerText = helloText;
+
+  }
+</script>
+</body>
+</html>
